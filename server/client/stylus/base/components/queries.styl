@@ -1,0 +1,50 @@
+/*----------------------------------------------------------------------------*
+	$MEDIA QUERIES PARA EL REM
+*----------------------------------------------------------------------------*/
+
+html
+	border: 1px solid #FF00C7
+	@media only screen and (min-width: $breakpoints['s'] + 1)
+		border: 3px solid #F00
+	@media only screen and (min-width: $breakpoints['m'] + 1)
+		border: 3px solid #FFE600
+	@media only screen and (min-width: $breakpoints['l'] + 1)
+		border: 3px solid #1CFF00
+	@media only screen and (min-width: $breakpoints['xl'] + 1)
+		border: 3px solid #00E8FF
+	@media only screen and (min-width: $breakpoints['hd'] + 1)
+		border: 3px solid #5900FF
+
+.g-container, .g-container-header
+	margin-left: auto
+	margin-right: auto
+	//border: 2px solid green
+$font = 10
+html
+	@media only screen and (min-width: $breakpoints['s'] + 1)
+		font-size: $font - 3.5 px // 6.5px
+	@media only screen and (min-width: $breakpoints['m'] + 1)
+		font-size: $font - 3 px // 7px
+	@media only screen and (min-width: $breakpoints['l'] + 1)
+		font-size: $font - 2 px // 8px
+	@media only screen and (min-width: $breakpoints['xl'] + 1)
+		font-size: $font - 1 px // 9px
+	@media only screen and (min-width: $breakpoints['hd'] + 1)
+		font-size: $font px // 10px
+
+
+// Ancho máximo para la caja g-container
+$container = 280px
+.g-container
+	max-width: $container
+	//border: 1px solid #FFF
+	@media only screen and (min-width: $breakpoints['s'] + 1)
+		max-width: $container+100
+	@media only screen and (min-width: $breakpoints['m'] + 1)
+		max-width: $container+100+220
+	@media only screen and (min-width: $breakpoints['l'] + 1)
+		max-width: $container+100+220+210
+	@media only screen and (min-width: $breakpoints['xl'] + 1)
+		max-width: $container+100+220+210+200
+	@media only screen and (min-width: $breakpoints['hd'] + 1)
+		max-width: $container+100+220+210+200+24

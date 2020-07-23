@@ -1,0 +1,25 @@
+extends includes/layout
+block title
+	title= 'BMT | Todos los eventos'
+block container
+	-events = events || {}
+	-title_page = 'TODOS LOS EVENTOS DE BMT'
+	.g-container-grid
+		.header= title_page
+		.c-group
+			a.c-group__btn(href="/events") Todos los eventos
+			a.c-group__btn(href="/events/public") Eventos Públicos
+			a.c-group__btn(href="/events/private") Eventos Privados
+			//- Muestra TODOS lo eventos con fecha superior a la actual
+			a.c-group__btn(href="/events/next") Próximos Eventos
+		for event in events
+			.c-card
+				.c-card__heading-1 #{event.name} #{event.status} #[hr]
+				.c-card__date #[span.icon-calendar2] #{event.date.toJSON().slice(0,10)}
+				.c-card__time #[span.icon-clock3] #{event.time}
+				.c-card__desc #{event.description}
+				a.c-card__fb(href=event.facebook) #[span.icon-facebook2]#{event.facebook}
+
+				//- TODO: .c-card__admin #{event.admin}
+				a.c-card__btn(href="#") Editar
+		.footer Footer
