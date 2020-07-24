@@ -1,10 +1,14 @@
 extends includes/layout
+
 block title
-	title BMT CMS #{title_page}
+	title BMT | #{title}
+block variables
+	-page = '/events/create'
+
 block container
-	- hours = ['13:00', '14:00', '15:00', '16:00', '17:00', '17:00', '19:00', '20:00', '21:00', '22:00', '23:00']
-	- all_status = ['private', 'public']
-	//- cuando el action es un string vacio se enviara la data a la pagina actual.//
+	-hours = ['13:00', '14:00', '15:00', '16:00', '17:00', '17:00', '19:00', '20:00', '21:00', '22:00', '23:00']
+	-all_status = ['private', 'public']
+
 	.g-container
 		h3 Crear Nuevo Evento BMT
 		p * Campos obligatorios
@@ -46,6 +50,6 @@ block container
 					for error in errors
 						li
 							span.icon-cancel-circle2
-							p= `El campo ${error.param} no puede estar vacio.` 
+							p= `El campo '${error.param}' es obligatorio para crear el evento.` 
 			.c-form__group
 				button(type='submit') Crear Evento

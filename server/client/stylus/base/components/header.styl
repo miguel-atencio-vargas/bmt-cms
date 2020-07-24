@@ -1,0 +1,133 @@
+.c-block-body
+	margin-top: 8rem
+
+.c-fixed
+	position: fixed
+	top: 0
+	width: 100%
+	z-index: $z-fixed
+	background-color: $base-color
+	padding: 1rem 2.7rem
+	@media only screen and (min-width: $breakpoints['hd'] + 1)
+		padding: 0 6rem
+
+
+.c-header
+	display: flex
+	justify-content: space-between
+	align-items: center
+	& a
+		white-space: nowrap
+
+
+.c-header__logo
+	& a
+		font-size:  $text-size.large
+		color: $base3-color
+		font-weight: 700
+
+
+$grosor = 2px
+.c-header__menu
+	display: none
+	@media only screen and (min-width: $breakpoints['xl'] + 1)
+		display: flex
+		& li
+			border-radius: 100px
+			margin: 3px
+			border: $grosor solid $base2-color
+
+			& a, label
+				color: $base2-color
+				line-height: 34px
+				font-size: 1.8rem
+				display: inline-block
+				height: 100%
+				padding: 0 1.2rem
+				font-weight: 700
+				cursor: pointer
+			&.active_page
+				transition: .7s ease
+				background: rgba($base3-color 0.13)
+			&:hover
+				transition: .5s ease
+				background: rgba($base3-color 0.13)
+			& i
+				vertical-align: middle
+				font-size: 1.8rem
+				padding-left: .8rem
+
+
+
+/*----------------------------------------------------------------------------*
+	$HEADER MOBILE
+*----------------------------------------------------------------------------*/
+.c-header__burguer
+	font-size: 4.5rem
+	& i
+		color: $base2-color
+	@media only screen and (min-width: $breakpoints['xl'] + 1)
+		display: none
+/*
+====== Estilos del popup Zoom efect======
+*/
+.mfp-zoom-in
+	/* Como va a entrar */
+	.mfp-with-anim
+		opacity: 0
+		transform: scale(1.2)
+		transition: all .4s ease-in-out 0s
+	&.mfp-bg
+		opacity: 0
+		transition: all .4s ease-out
+	/* Cuando esta estatico */
+	&.mfp-ready
+		.mfp-with-anim
+			opacity: 1
+			transform: scale(1)
+		&.mfp-bg
+			opacity: .75
+	/* Cuando la animacion se vá*/
+	&.mfp-removing
+		.mfp-with-anim
+			transform: scale(1.2)
+			opacity: 0
+		&.mfp-bg
+			opacity: 0
+
+.mfp-close
+	display: none !important
+.mfp-bg
+	background: $base-color-light !important
+/*
+====== End  Estilos popupZoom efect  ======
+*/
+.c-popup
+	position: relative
+	margin: 3.8rem auto 0
+	width: 37rem
+	box-shadow: #000 0px 0px 20px
+	border-radius: 8px
+
+.c-popup__menu // ul
+	overflow: hidden
+	background: $base2-color
+	border-radius: 8px
+	& li
+		border-bottom: 1px solid rgba($base-color, 0.2)
+		&.active_page
+			border: $grosor solid $base-color
+			border-radius: 6px
+			background: rgba(#FFF 0.13)
+	& a
+		font-size: 2.5rem
+		font-weight: 500
+		display: block
+		text-align: center
+		padding: 2.3rem
+		& img
+			width: 2.4rem
+			padding-left: .3rem
+		& i
+			font-size: 2.3rem
+			padding-left: .8rem

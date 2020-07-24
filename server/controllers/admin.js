@@ -7,19 +7,19 @@ const async = require('async');
 
 
 
-function register(req, res) {
-    res.render('index')
-}
-function login(req, res){
-    res.render('login');
-}
-
-
-module.exports = {
-    register,
-    login
-}
-
+// function register(req, res) {
+//     res.render('index')
+// }
+// function login(req, res){
+//     res.render('login');
+// }
+//
+//
+// module.exports = {
+//     register,
+//     login
+// }
+//
 
 
 

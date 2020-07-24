@@ -1,27 +1,16 @@
+/*
+* GRID de la estructura de la pagina.
+*/
 .g-container-grid
 	display: grid
 	margin: 0 1rem
 	grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr))
+	grid-template-rows: auto auto
+	grid-auto-rows: 35rem
 	grid-gap: 10px
-
-.c-card
-	padding: 1rem 2rem
-	border: 2px solid #06F
-	border-radius: 10px
-
-.c-card__heading-1
-	padding-top: 1rem
-	font-size: $header-font-size.h2
-
-
-.c-card__date, .c-card__time, .c-card__desc, .c-card__fb
-	display: block
-	font-size: $text-size.normal
-	margin-bottom: 1rem
-	& *
-		padding-right: 1rem
-
-// Buttons
+/*
+* Menu para listar a los eventos
+*/
 .c-group
 	@media only screen and (min-width: $breakpoints['m'] + 1)
 		display: flex
@@ -29,17 +18,48 @@
 .c-group__btn
 	display: block
 	text-align: center
-	font-size: $text-size.normal-2
-	border: 2px solid #FFF
-	border-radius: 12px
-	padding: 1rem
+	font-size: $text-size.normal
+	border: 1.5px solid #FFF
+	border-radius: 50px
+	padding: 1rem 1.5rem
 	&:nth-child(2), &:nth-child(3)
 		margin: 8px 0
 		@media only screen and (min-width: $breakpoints['m'] + 1)
-			margin: 0 10px
+			margin: 0 .5rem
+/*
+* Tarjetas para mostrar los eventos
+*/
+.c-card
+	padding: 1rem 2rem
+	border: 2px solid #06F
+	border-radius: 10px
+	& .c-card__btn
+		font-size: $text-size.normal // TODO añadir estilos al boton
+		color: red
+.c-card__date, .c-card__time, .c-card__desc, .c-card__fb
+	font-size: $text-size.normal-2
+	margin-bottom: 1rem
+// Titulo del evento
+.c-card__heading-1
+	padding-top: 1rem
+	font-size: $header-font-size.h2
+// Fecha del evento
+.c-card__date
+	display: inline-block
+// Hora del evento
+.c-card__time
+	display: inline-block
+	padding-left: 2rem
+// Link de facebook del evento
+.c-card__fb
+	display: block
 
-
+.c-card__desc
+	overflow-y: auto
+	max-height: 15rem
 
 .header, .footer, .c-group
-	flex: 0 1 100%;
 	grid-column: 1 / -1;
+// Estilos para el boton seleccionado
+.active
+	background: #575757

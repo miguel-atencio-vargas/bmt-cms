@@ -23,7 +23,7 @@ const { event_create_get,
 * Rutas para el formulario "Crear Evento"
 */
 router.get('/events/create', event_create_get)
-router.post('/events/create', validate, cleanHTML, event_create_post)
+router.post('/events/create', validate, event_create_post)
 
 /*
 * Ruta para listar todos los eventos

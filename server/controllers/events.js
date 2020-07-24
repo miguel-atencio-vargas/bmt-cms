@@ -1,12 +1,11 @@
 'use strict'
-const {validationResult} = require('express-validator');
-const async = require('async');
+const { validationResult } = require('express-validator')
+//const async = require('async');
 
-const Event = require('../models/event');
-
+const Event = require('../models/event')
 
 function event_create_get(req, res, next){
-    res.render('event_form', {title_page: 'Crear Evento'});
+    res.render('event_form', {title: 'Crear Evento'})
 }
 
 function event_create_post(req, res, next) {
@@ -20,7 +19,12 @@ function event_create_post(req, res, next) {
 	event.status      = req.body.status
 	if( errors.length != 0 ){
 		const date = event.date? event.date.toJSON().slice(0,10) : ''
-		res.render('event_form', {title_page: 'Revise los datos del evento', event, date, errors})
+		res.render('event_form', {
+			title: 'Revise los datos del evento',
+			event,
+			date,
+			errors
+		})
 		return
 	}
 
@@ -32,44 +36,57 @@ function event_create_post(req, res, next) {
 		})
 	})
 }
+
+// Recupera TODOS los eventos
 function list_all_events(req, res, next){
 	Event.find().sort({'date': -1}).lean()
 	.exec((err, events) => {
 		if(err){ return next(err) }
-		res.render('events', {events})
+		res.render('events', {
+			title: 'Todos los eventos',
+			events
+		})
 	})
 }
-// Muestra todos los eventos publicos y en forma ascendente.
+
+// Recuperra todos los eventos publicos y en forma ascendente.
 function list_public_events(req, res, next){
 	Event.find({'status': 'public'}).sort({'date': -1}).lean()
 	.exec((err, events) => {
 		if(err){ return next(err) }
-		res.render('events', {events})
+		res.render('events', {
+			title: 'Eventos en público',
+			events
+		})
 	})
 }
+
 // Muestra todos los eventos privados y en forma ascendente.
 function list_private_events(req, res, next){
 	Event.find({'status': 'private'}).sort({'date': -1}).lean()
 	.exec((err, events) => {
 		if(err){ return next(err) }
-		res.render('events', {events})
+		res.render('events', {
+			title: 'Eventos en privado',
+			events
+		})
 	})
 }
 
 function list_all_next_events(req, res, next){
 	const today = new Date()// por seguridad ver la forma de como establecer la zona horaria GMT-0400
 	Event.find().sort({'date': -1}).lean()
-	.exec((err, all_events) => {
+	.exec((err, data) => {
 		if(err){ return next(err) }
 
-		let next_events = [];
-		for(let e of all_events){
-			if(e.date >= today){
-				next_events.push(e)
-			}
+		let events = [];
+		for(let e of data){
+			if(e.date >= today) { events.push(e) }
 		}
-		console.log(next_events);
-		res.render('events', {events: next_events})
+		res.render('events', {
+			title: 'Próximos Eventos',
+			events
+		})
 	})
 }
 module.exports = {

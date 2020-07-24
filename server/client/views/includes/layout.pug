@@ -9,7 +9,7 @@ html(lang="es")
 		// Icomoon
 		link(rel="stylesheet" href="/css/vendors/icomoon.css")
 		// PopUp - Magnific
-		//-link(rel="stylesheet", href="assets/css/vendors/magnific.css")
+		link(rel="stylesheet", href="/css/vendors/magnific.css")
 
 
 		block title
@@ -17,17 +17,20 @@ html(lang="es")
 		block variables
 
 		// Scripts Vendors Globales
-		//-script(src="./assets/js/vendors/jquery-1.9.1.min.js" defer)
-		//-script(src="./assets/js/vendors/jquery-migrate-1.2.1.min.js" defer)
-		//-script(src="assets/js/vendors/magnific.js" defer)
+		script(src="/js/vendors/turbolinks.js" )
+		script(src="/js/vendors/jquery-1.9.1.min.js" defer )
+		script(src="/js/vendors/jquery-migrate-1.2.1.min.js" defer )
+		script(src="/js/vendors/magnific.js" defer )
 		block vendorsJS
 		block vendorsCSS
-		// Estilos globales
-		link(rel='stylesheet', href='/css/global.css')
-		// Script GLOBAL------
-		//-script(src="./assets/js/global.js" defer)
+		//- Estilos globales
+		link(rel='stylesheet', href='/css/global.css' )
+		//- Script GLOBAL
+		script(src="/js/global.js"  defer)
+		//- Turbolinks
+		
 	body.c-block-body
 		.c-fixed
-			//-include global-menu
+			include header
 		.g-container
 			block container
