@@ -12,19 +12,18 @@
 // 		}
 // 	});
 // });
-
-$('#js-menuMovil').magnificPopup({
-	delegate: 'a',
-	removalDelay: 500,
-	callbacks: {
-		beforeOpen: function() {
-			this.st.mainClass = this.st.el.attr('data-effect');
+document.addEventListener("turbolinks:load", function() {
+	$('#js-menuMovil').magnificPopup({
+		delegate: 'a',
+		type: 'inline',
+		removalDelay: 500,
+		callbacks: {
+			beforeOpen: function() {
+				this.st.mainClass = 'mfp-zoom-in'
+			}
 		}
-	}
-});
-
-
-// Funcion para cerrar el popup (cualquier elemento que tenga la clase .close).
-$('.close').click( function(e){
-	$.magnificPopup.close();
-});
+	});
+	$('.close').click( function(e){
+		$.magnificPopup.close();
+	});
+})

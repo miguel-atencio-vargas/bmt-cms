@@ -9,47 +9,50 @@ block container
 	-hours = ['13:00', '14:00', '15:00', '16:00', '17:00', '17:00', '19:00', '20:00', '21:00', '22:00', '23:00']
 	-all_status = ['private', 'public']
 
-	.g-container
-		h3 Crear Nuevo Evento BMT
-		p * Campos obligatorios
-		form.c-form(method='POST' action='')
-			.c-form__group
-				.campo-col
-					input#name(type='text', placeholder='Nombre del evento *' name='name' value=(event===undefined ? '' : event.name))
-				.campo-col
-					input#date(type='date', name='date' value=date==='' ? '' : date)
 
-			.c-form__group
-				.campo-col
-					input#facebook(type='text', placeholder='Link de Facebook al evento *' name='facebook' value=(event===undefined ? '' : event.facebook))
-				.campo-col
-					select#status(name="status" value="public") 
-						for elem in all_status
-							if event
-								if event.status == elem
-									option(value=elem selected)= elem
-								else
-									option(value=elem)= elem
+	h3 Crear Nuevo Evento BMT
+	p * Campos obligatorios
+	form.c-form(method='POST' action='')
+		.c-form__group
+			.campo-col
+				input#name(type='text', placeholder='Nombre del evento *' name='name' value=(event===undefined ? '' : event.name))
+			.campo-col
+				input#date(type='date', name='date' value=date==='' ? '' : date)
+
+		.c-form__group
+			.campo-col
+				input#facebook(type='text', placeholder='Link de Facebook al evento *' name='facebook' value=(event===undefined ? '' : event.facebook))
+			.campo-col
+				select#status(name="status" value="public") 
+					for elem in all_status
+						if event
+							if event.status == elem
+								option(value=elem selected)= elem
 							else
 								option(value=elem)= elem
-			.c-form__group
-				.campo-col
-					select#time(name="time")
-						for elem in hours
-							if event
-								if event.time == elem
-									option(value=elem selected)= elem
-								else
-									option(value=elem)= elem
+						else
+							option(value=elem)= elem
+		.c-form__group
+			.campo-col
+				select#time(name="time")
+					for elem in hours
+						if event
+							if event.time == elem
+								option(value=elem selected)= elem
 							else
 								option(value=elem)= elem
-			.c-form__group-solo.c-form__group
-				textarea#description(type='text', placeholder='Escribe la descripción del evento *' name='description' value=(event===undefined ? '' : event.description))
-			if errors 
-				ul.c-list-errors
-					for error in errors
-						li
-							span.icon-cancel-circle2
-							p= `El campo '${error.param}' es obligatorio para crear el evento.` 
-			.c-form__group
-				button(type='submit') Crear Evento
+						else
+							option(value=elem)= elem
+		.c-form__group-solo.c-form__group
+			textarea#description(type='text', placeholder='Escribe la descripción del evento *' name='description' value=(event===undefined ? '' : event.description))
+
+
+		if errors 
+			ul.c-list-errors
+				for error in errors
+					li
+						span.icon-cancel-circle2
+						p= `El campo '${error.param}' es obligatorio para crear el evento.` 
+
+		.c-form__group
+			button(type='submit') Crear Evento
