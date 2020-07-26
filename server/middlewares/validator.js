@@ -3,7 +3,7 @@
 const { body, check } = require('express-validator');
 
 exports.validate = [
-    body('*', 'El campo no puede estar vacio').notEmpty()
+    body('*', 'El campo no puede estar vacio').not().isEmpty()
 ];
 //Se debe reemplazar por un xss decente
 //.escape().trim()

@@ -44,7 +44,8 @@ block container
 						else
 							option(value=elem)= elem
 		.c-form__group-solo.c-form__group
-			textarea#description(type='text', placeholder='Escribe la descripción del evento *' name='description' value=(event===undefined ? '' : event.description))
+			-desc=(event===undefined ? '' : event.description)
+			textarea#description(type='text', placeholder='Escribe la descripción del evento *' name='description')= desc
 
 
 		if errors 

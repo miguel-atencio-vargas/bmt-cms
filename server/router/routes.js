@@ -15,7 +15,9 @@ const { event_create_get,
 		list_all_events,
 		list_public_events,
 		list_private_events,
-		list_all_next_events
+		list_all_next_events,
+		get_event_to_edit,
+		edit_event
 	} = require('../controllers/events')
 
 
@@ -28,13 +30,15 @@ router.post('/events/create', validate, event_create_post)
 /*
 * Ruta para listar todos los eventos
 */
-router.get('/events', list_all_events);
-router.get('/events/public', list_public_events);
-router.get('/events/private', list_private_events);
-router.get('/events/next', list_all_next_events);
+router.get('/events', list_all_events)
+router.get('/events/public', list_public_events)
+router.get('/events/private', list_private_events)
+router.get('/events/next', list_all_next_events)
+/*
+* Rutas para editar el evento
+*/
+router.get('/events/edit/:id', get_event_to_edit)
+router.post('/events/edit/:id',validate, edit_event)
 
-
-// router.get('/', login);
-// router.get('/register', register);
 
 module.exports = router

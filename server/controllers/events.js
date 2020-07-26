@@ -5,34 +5,29 @@ const { validationResult } = require('express-validator')
 const Event = require('../models/event')
 
 function event_create_get(req, res, next){
-    res.render('event_form', {title: 'Crear Evento'})
+    res.render('event_form', {
+		title: 'Crear Evento'
+	})
 }
 
 function event_create_post(req, res, next) {
     const errors  = validationResult(req).array()
-    let event= new Event()
-    event.name 		  = req.body.name
-	event.description = req.body.description
-	event.date 		  = req.body.date+" GMT-0400"
-	event.time 		  = req.body.time
-	event.facebook    = req.body.facebook
-	event.status      = req.body.status
 	if( errors.length != 0 ){
-		const date = event.date? event.date.toJSON().slice(0,10) : ''
 		res.render('event_form', {
 			title: 'Revise los datos del evento',
-			event,
-			date,
+			event: req.body,
+			date: req.body.date,
 			errors
 		})
 		return
 	}
-
-	event.save((err, event_saved) => {
-		if(err){ return next(err)}
-		res.json({
-			message: `Nuevo evento: ${event.url}`,
-			event_saved
+	let event= new Event(req.body)
+	req.body.date = req.body.date+" GMT-0400"
+	event.save((err, event) => {
+		if(err){ return next(err) }
+		res.render('events', {
+			title: 'Evento creado Exitosamente!',
+			events: [event] // las vista necesita que sea un vector
 		})
 	})
 }
@@ -89,13 +84,57 @@ function list_all_next_events(req, res, next){
 		})
 	})
 }
+
+/*
+* Edicion de Eventos
+*/
+
+function get_event_to_edit(req, res, next) {
+	const { id } = req.params
+	Event.findById(id, (err, event) => {
+		if(err){ return next(err) }
+		const date = event.date? event.date.toJSON().slice(0,10) : '';
+		console.log(event);
+		res.render('event_form', {
+			title: 'Modo Edición',
+			event,
+			date
+		})
+	})
+}
+
+function edit_event(req, res, next) {
+	const errors  = validationResult(req).array()
+	const update = req.body
+	if( errors.length != 0 ){
+		res.render('event_form', {
+			title: 'Revise los datos del evento',
+			event: update,
+			date: update.date,
+			errors
+		})
+		return
+	}
+	const { id } = req.params
+	req.body.date = new Date(req.body.date+" GMT-0400")
+	Event.findByIdAndUpdate(id, update, {new: true}, (err, event_updated) => {
+		if(err){ return next(err) }
+		res.render('events',{
+			title: 'Evento actualizado correctamente!',
+			events: [event_updated]
+		})
+	})
+}
+
 module.exports = {
     event_create_get,
     event_create_post,
 	list_all_events,
 	list_public_events,
 	list_private_events,
-	list_all_next_events
+	list_all_next_events,
+	get_event_to_edit,
+	edit_event
 }
 
 

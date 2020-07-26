@@ -8,14 +8,16 @@ block variables
 	-page = '/events'
 
 block container
+	include includes/menu-list-events
 	.g-container-grid
-		include includes/menu-list-events
 		for event in events
 			.c-card
-				.c-card__heading-1 #{event.name} #{event.status} #[hr]
-				.c-card__date #[span.icon-calendar2]  #{event.date.toJSON().slice(0,10)}
-				.c-card__time #[span.icon-clock3] #{event.time}
+				.c-card__heading-1 #{event.name} #{event.status}
+				hr.c-card-line
+				.c-group-dates
+					.c-card__date #[span.icon-calendar2]  #{event.date.toJSON().slice(0,10)}
+					.c-card__time #[span.icon-clock3] #{event.time}
 				a.c-card__fb(href=event.facebook target="_blank") #[span.icon-facebook2] Facebook
 				.c-card__desc #{event.description}
 				//- TODO: .c-card__admin #{event.admin}
-				a.c-card__btn(href="#") Editar
+				a.c-card__btn(href=`/events/edit/${event._id}`) Editar Evento
