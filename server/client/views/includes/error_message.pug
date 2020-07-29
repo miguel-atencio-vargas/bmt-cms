@@ -1,0 +1,6 @@
+if errors 
+	ul.c-list-errors
+		for error in errors
+			li
+				span.icon-cancel-circle2
+				p= `El ${error.param} ${error.msg}` 

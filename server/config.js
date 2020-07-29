@@ -18,3 +18,7 @@ process.env.CADUCIDAD_TOKEN = process.env.CADUCIDAD_TOKEN || '48h';
 -----SEED de autenticacion---
 =============================*/
 process.env.SEED = process.env.SEED || 'este_es_el_SEED_de_desarrollo';
+/*===========================
+-----token para crear administrador---
+=============================*/
+process.env.BMT = process.env.BMT || 'misupertoken'

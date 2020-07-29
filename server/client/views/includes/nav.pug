@@ -1,8 +1,12 @@
-li.close(class={active_page: page == '/'})
-	a(href="/events") Inicio#[i.icon-home2]
 
 li.close(class={active_page: page == '/events'})
 	a(href="/events") Eventos#[i.icon-calendar2]
 
 li.close(class={active_page: page == '/events/create'})
 	a(href="/events/create") Crear Evento #[i.icon-album]
+
+li.close(class={active_page: page == '/'})
+	a(href="/admin") Registrarse#[i.icon-home2]
+
+li.close(class={active_page: page == '/'})
+	a(href="/admin") Iniciar Sesión#[i.icon-home2]

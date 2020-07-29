@@ -1,0 +1,50 @@
+
+.c-form-personal, .c-form-code, .c-form-login
+	margin-bottom: 4rem
+	padding: 0 5rem
+	& p
+		font-size: 2rem
+		line-height: 1.1
+		padding: 2rem 0 1rem
+		color: $base-color
+	& a
+		border: .4rem solid #39A0FF
+		width: max-content
+
+.c-form-password
+	display: flex
+	align-items: center
+
+input, textarea, select
+	font-size: $text-size.normal-3
+	width: 100%
+	border-radius: 5px
+	background-color: $base-color-light
+	border: 3px solid $base3-color-dark
+	transition: .7s ease
+	&:focus
+		border: 3px solid #33ff99ff
+	&:invalid
+		box-shadow: 0 0 1.5px 1px rgba(#00C9FF,0)
+
+
+
+.showPass
+	background: #222a2e
+	border-radius: 5px
+	border: 2px solid $base-color
+	height: min-content
+	& i
+		font-size: 2rem
+		color: $base-color
+		vertical-align: middle
+
+.c-form-submit
+	padding: 1rem 2rem
+	border-radius: 10px
+	border: .4rem solid #39FF9A
+	display: block
+	margin: 0 auto 2rem
+	background-color: #222a2e
+	color: $base-color
+	font-weight: 700

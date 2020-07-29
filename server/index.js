@@ -1,10 +1,9 @@
 'use strict'
 
-const mongoose = require('mongoose');
-const app = require('./app');
+const mongoose = require('mongoose')
+const app = require('./app')
 // importamos la configuracion
-require('./config');
-
+require('./config')
 const uriDB = process.env.URL_DB;
 const port = process.env.PORT;
 

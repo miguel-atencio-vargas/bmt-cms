@@ -11,23 +11,13 @@ function event_create_get(req, res, next){
 }
 
 function event_create_post(req, res, next) {
-    const errors  = validationResult(req).array()
-	if( errors.length != 0 ){
-		res.render('event_form', {
-			title: 'Revise los datos del evento',
-			event: req.body,
-			date: req.body.date,
-			errors
-		})
-		return
-	}
-	let event= new Event(req.body)
+	let event = new Event(req.body)
 	req.body.date = req.body.date+" GMT-0400"
 	event.save((err, event) => {
 		if(err){ return next(err) }
 		res.render('events', {
 			title: 'Evento creado Exitosamente!',
-			events: [event] // las vista necesita que sea un vector
+			events: [event] // necesita que sea un vector
 		})
 	})
 }
@@ -104,17 +94,7 @@ function get_event_to_edit(req, res, next) {
 }
 
 function edit_event(req, res, next) {
-	const errors  = validationResult(req).array()
 	const update = req.body
-	if( errors.length != 0 ){
-		res.render('event_form', {
-			title: 'Revise los datos del evento',
-			event: update,
-			date: update.date,
-			errors
-		})
-		return
-	}
 	const { id } = req.params
 	req.body.date = new Date(req.body.date+" GMT-0400")
 	Event.findByIdAndUpdate(id, update, {new: true}, (err, event_updated) => {

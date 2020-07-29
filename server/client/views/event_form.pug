@@ -4,37 +4,22 @@ block title
 	title BMT | #{title}
 block variables
 	-page = '/events/create'
-
 block container
 	-hours = ['13:00', '14:00', '15:00', '16:00', '17:00', '17:00', '19:00', '20:00', '21:00', '22:00', '23:00']
 	-all_status = ['private', 'public']
 
 
 	h3 Crear Nuevo Evento BMT
-	p * Campos obligatorios
+	p * Camposf obligatorios
 	form.c-form(method='POST' action='')
 		.c-form__group
-			.campo-col
-				input#name(type='text', placeholder='Nombre del evento *' name='name' value=(event===undefined ? '' : event.name))
-			.campo-col
-				input#date(type='date', name='date' value=date==='' ? '' : date)
+			input(type='text', placeholder='Nombre del evento *' name='name' value=(event===undefined ? '' : event.name))
 
 		.c-form__group
 			.campo-col
-				input#facebook(type='text', placeholder='Link de Facebook al evento *' name='facebook' value=(event===undefined ? '' : event.facebook))
+				input(type='date', name='date' value=date==='' ? '' : date)
 			.campo-col
-				select#status(name="status" value="public") 
-					for elem in all_status
-						if event
-							if event.status == elem
-								option(value=elem selected)= elem
-							else
-								option(value=elem)= elem
-						else
-							option(value=elem)= elem
-		.c-form__group
-			.campo-col
-				select#time(name="time")
+				select(name="time")
 					for elem in hours
 						if event
 							if event.time == elem
@@ -43,17 +28,24 @@ block container
 								option(value=elem)= elem
 						else
 							option(value=elem)= elem
+		.c-form__group
+			.campo-col
+				input(type='text', placeholder='Link de Facebook al evento *' name='facebook' value=(event===undefined ? '' : event.facebook))
+			.campo-col
+				select(name="status" value="public") 
+					for elem in all_status
+						if event
+							if event.status == elem
+								option(value=elem selected)= elem
+							else
+								option(value=elem)= elem
+						else
+							option(value=elem)= elem
 		.c-form__group-solo.c-form__group
 			-desc=(event===undefined ? '' : event.description)
-			textarea#description(type='text', placeholder='Escribe la descripción del evento *' name='description')= desc
+			textarea(type='text', placeholder='Escribe la descripción del evento *' name='description')= desc
 
 
-		if errors 
-			ul.c-list-errors
-				for error in errors
-					li
-						span.icon-cancel-circle2
-						p= `El campo '${error.param}' es obligatorio para crear el evento.` 
+		include includes/error_message
 
-		.c-form__group
-			button(type='submit') Crear Evento
+		button.c-form-submit(type='submit') Crear Evento

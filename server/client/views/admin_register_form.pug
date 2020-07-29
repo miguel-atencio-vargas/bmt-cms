@@ -1,0 +1,34 @@
+extends includes/layout
+
+block title
+	title BMT | #{title}
+
+
+block container
+	h3 Crear usuario Administrador
+	p * Campos obligatorios
+	form.c-form(method='POST', action='')
+		.c-form-personal
+			p Ingrese su correo personal:
+			input(name='email' type='email' placeholder="example@gmail.com" value=(admin===undefined ? '' : admin.email))
+			p Ingrese una contraseña segura (mínimo 8 caracteres, 1 número y un simbolo):
+			.c-form-password
+				input#password(name='password' type='password' value=(admin===undefined ? '' : admin.password))
+				button.showPass(type='button' onclick='showPass()') #[i#eye-1.icon-eye2]
+			p Por favor confirme la contraseña:
+			.c-form-password
+				input#confirm(name='confirm' type='password' value=(admin===undefined ? '' : admin.confirm))
+				button.showPass(type='button' onclick='showConfirm()') #[i#eye-2.icon-eye2]
+		.c-form-code
+			p Para crear un usuario  requerirá el código proporcionado por el administrador del sitio. A continuación ingrese el código:
+			.c-form-password
+				input#code(name='code' type='password' value=(admin===undefined ? '' : admin.code))
+				button.showPass(type='button' onclick='showCode()') #[i#eye-3.icon-eye2]
+
+		include includes/error_message
+		button.c-form-submit(type='submit') Crear usuario
+
+		.c-form-login
+			hr
+			p O sí ya tiene una cuenta puede:
+			a.c-card__btn(href='/login') Iniciar Sesión
