@@ -13,7 +13,7 @@ let AdminSchema = Schema({
     },
     password: {
         type: String,
-        required: false
+        required: [true, 'Es necesario una password']
     },
     subscription: {
         type: Date,
@@ -29,6 +29,6 @@ AdminSchema.methods.toJSON = function () {
 }
 //error cuando los datos tienen que ser unicos
 AdminSchema.plugin(uniqueValidator, {
-    message: '{PATH} debe de ser único'
+    message: 'debe de ser único'
 });
 module.exports = mongoose.model('Admin', AdminSchema);

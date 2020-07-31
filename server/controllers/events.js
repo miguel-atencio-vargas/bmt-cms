@@ -12,7 +12,7 @@ function event_create_get(req, res, next){
 
 function event_create_post(req, res, next) {
 	let event = new Event(req.body)
-	req.body.date = req.body.date+" GMT-0400"
+	req.body.date = req.body.date+" GMT-0400"//revisar!
 	event.save((err, event) => {
 		if(err){ return next(err) }
 		res.render('events', {

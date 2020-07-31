@@ -4,8 +4,8 @@ const mongoose = require('mongoose')
 const app = require('./app')
 // importamos la configuracion
 require('./config')
-const uriDB = process.env.URL_DB;
-const port = process.env.PORT;
+const uriDB = process.env.URL_DB
+const port = process.env.PORT
 
 mongoose.Promise = global.Promise;
 mongoose.connect(uriDB, {
@@ -15,11 +15,11 @@ mongoose.connect(uriDB, {
         useUnifiedTopology: true
     })
     .then(() => {
-        console.log(`Conexión establecida DB: ${uriDB} :D `);
+        console.log('Connect', uriDB)
         app.listen(port, () => {
-            console.log(`Server running on: http://localhost:${port}`);
-        });
+			console.log('Server running on: http://localhost:', port);
+        })
     })
     .catch((e) => {
-        console.log('Error al servir la aplicacion: \n', e)
-    });
+        console.log('Error on serve app: \n', e)
+    })

@@ -1,61 +1,101 @@
 'use strict'
 
-const { body, check, validationResult } = require('express-validator');
+const { body, check, validationResult } = require('express-validator')
 const Admin = require('../models/admin')
-require('../config');
-const BMT = process.env.BMT
+require('../config')
+const bmt = process.env.BMT
 
-exports.field_is_empty_event = [
-    body('*', 'no puede estar vacio.').not().isEmpty(), function(req, res, next){
+exports.check_field_event = [
+    body('*', 'no puede estar vacio.').not().isEmpty(),
+	function(req, res, next){
 		const errors  = validationResult(req).array()
-		if( errors.length != 0 ){
+		if( errors.length !== 0 ){
 			res.render('event_form', {
 				title: 'Revise los datos del evento',
 				event: req.body,
 				date: req.body.date,
 				errors
 			})
+		}else{
+			next() // ir al controlador
 		}
-		next()
 	}
 ]
 //1. Primero revisar que los campos no esten vacios -true
-//2. Revisar que el codigo sea incorrecto - false
+//2. Revisar que el codigo sea incorrecto - true
 //3. Revisar que el correo no este en uso- mongoose
 //4. Revisar que la contraseña cumple con los requisitos
-//body('password', 'debe tener al menos 8 caracteres').isLength({min: 8}), //debe contener un numero y un caracter
+//5. Revisar que las contraseñas sean iguales
 exports.check_field_register = [
-	body('*', 'no puede estar vacio').not().isEmpty(), function(req, res, next){
+	body('*', 'no puede estar vacio').not().isEmpty(),
+	function(req, res, next){
 		const errors = validationResult(req).array()
-		if( errors.length != 0 ){
+		if( errors.length !== 0 ){
 			res.render('admin_register_form', {
 				title: 'Revise los datos del administrador',
 				admin: req.body,
 				errors
 			})
+		}else{
+			next() // ir al siguiente middleware
 		}
-		next()
 	}
 ]
 //  misupertoken
 exports.check_code_register = [
-	body('code', 'es incorrecto').custom(code => {
-		console.log(code, BMT);
-		if(code !== BMT){
+	body('code').custom(code => {
+		//seria bueno añadir un encriptado al code.
+		if(code !== bmt)
 			throw new Error('es incorrecto.')
-		}
-		return true
-	}),
-	function(req, res, next) {
+		else
+			return true
+	}), function(req, res, next) {
 		const errors = validationResult(req).array()
-		if( errors.length != 0 ){
+		if( errors.length !== 0 ){
 			res.render('admin_register_form', {
 				title: 'Revise el código',
 				admin: req.body,
 				errors
 			})
 		}else{
+			next() // ir al siguiente controlador.
+		}
+	}
+]
+
+exports.check_password_min = [
+	body('password', 'no cumple con los requisitos necesarios.')
+	.matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/),
+	function(req, res, next){
+		const errors  = validationResult(req).array()
+		if( errors.length !== 0 ){
+			res.render('admin_register_form', {
+				title: 'Revise la contraseña',
+				admin: req.body,
+				errors
+			})
+		}else{
 			next()
+		}
+	}
+]
+
+exports.check_match_passwords = [
+	check('password').custom((password, { req } ) => {
+		if(password !== req.body.confirm)
+			throw new Error('no coincide con la confirmación de la contraseña.')
+		else
+			return true
+	}), function(req, res, next){
+		const errors = validationResult(req).array()
+		if( errors.length !== 0 ){
+			res.render('admin_register_form', {
+				title: 'Las contraseñas no coinciden',
+				admin: req.body,
+				errors
+			})
+		}else{
+			next() // ir al controlador.
 		}
 	}
 ]
