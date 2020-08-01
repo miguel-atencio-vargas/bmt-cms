@@ -18,6 +18,11 @@ let AdminSchema = Schema({
     subscription: {
         type: Date,
         default: new Date()
+    },
+    telegram_notify:{
+        type: Boolean,
+        default: false,
+        required: [true, 'Es necesario notificar a Telegram']
     }
 })
 //metodo para borrar el atributo password

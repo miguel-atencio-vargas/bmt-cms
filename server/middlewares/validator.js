@@ -21,17 +21,20 @@ exports.check_field_event = [
 		}
 	}
 ]
+
+
 //1. Primero revisar que los campos no esten vacios -true
 //2. Revisar que el codigo sea incorrecto - true
 //3. Revisar que el correo no este en uso- mongoose
 //4. Revisar que la contraseña cumple con los requisitos
 //5. Revisar que las contraseñas sean iguales
-exports.check_field_register = [
+exports.check_field = [
 	body('*', 'no puede estar vacio').not().isEmpty(),
 	function(req, res, next){
+		const page = req.originalUrl.replace(/\//g, '')
 		const errors = validationResult(req).array()
 		if( errors.length !== 0 ){
-			res.render('admin_register_form', {
+			res.render( page, {
 				title: 'Revise los datos del administrador',
 				admin: req.body,
 				errors
@@ -50,9 +53,10 @@ exports.check_code_register = [
 		else
 			return true
 	}), function(req, res, next) {
+		const page = req.originalUrl.replace(/\//g, '')
 		const errors = validationResult(req).array()
 		if( errors.length !== 0 ){
-			res.render('admin_register_form', {
+			res.render( page, {
 				title: 'Revise el código',
 				admin: req.body,
 				errors
@@ -67,9 +71,10 @@ exports.check_password_min = [
 	body('password', 'no cumple con los requisitos necesarios.')
 	.matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/),
 	function(req, res, next){
+		const page = req.originalUrl.replace(/\//g, '')
 		const errors  = validationResult(req).array()
 		if( errors.length !== 0 ){
-			res.render('admin_register_form', {
+			res.render( page, {
 				title: 'Revise la contraseña',
 				admin: req.body,
 				errors
@@ -80,16 +85,17 @@ exports.check_password_min = [
 	}
 ]
 
-exports.check_match_passwords = [
+exports.check_confirm = [
 	check('password').custom((password, { req } ) => {
 		if(password !== req.body.confirm)
 			throw new Error('no coincide con la confirmación de la contraseña.')
 		else
 			return true
 	}), function(req, res, next){
+		const page = req.originalUrl.replace(/\//g, '')
 		const errors = validationResult(req).array()
 		if( errors.length !== 0 ){
-			res.render('admin_register_form', {
+			res.render( page, {
 				title: 'Las contraseñas no coinciden',
 				admin: req.body,
 				errors
@@ -100,32 +106,6 @@ exports.check_match_passwords = [
 	}
 ]
 
-// exports.check_mail = [
-// 	check()
-// 	.custom((email, {req}) => {
-// 		Admin.find({email: email})
-// 		.exec((err, admin) => {
-// 			console.log('eror: ',  err);
-// 			if(err) {return err}
-// 			if(admin.length !== 0){
-// 				throw new Error('Este email ya está en uso.')
-// 			}else{
-// 				return email
-// 			}
-// 		})
-// 	})
-// ]
-
-// exports.check_password = [
-// 	check('password')
-// 	.custom((password, { req }) => {
-// 		if(password !== req.body.confirm){
-// 			throw new Error('no coinciden.')
-// 		}else{
-// 			return password
-// 		}
-// 	})
-// ]
 //Se debe reemplazar por un xss decente
 //.escape().trim()
 // exports.cleanHTML = (req, res, next) => {

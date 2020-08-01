@@ -6,9 +6,10 @@ const router = express.Router()
 // Importacion de middlewares
 const { check_field_event,
 		check_code_register,
-		check_field_register,
+		//Admin
+		check_field,
 		check_password_min,
-		check_match_passwords
+		check_confirm
 	} = require('../middlewares/validator')
 
 /*-----------------------------------------------------*
@@ -45,12 +46,15 @@ router.post('/events/edit/:id', check_field_event, edit_event)
 *------------------------------------------------------*/
 const {
 	get_register_form,
-	register_form
+	register_form,
+	get_login_form,
+	login_form
 } = require('../controllers/admin')
-
-router.get('/admin', get_register_form)
-router.post('/admin', check_field_register, check_code_register, check_password_min, check_match_passwords, register_form)
-
-
+//======  Register
+router.get('/register', get_register_form)
+router.post('/register', check_field, check_code_register, check_password_min, check_confirm, register_form)
+//======  Login
+router.get('/login', get_login_form)
+router.post('/login', check_field, login_form)
 
 module.exports = router

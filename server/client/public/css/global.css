@@ -217,34 +217,6 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-html {
-  border: 1px solid #ff00c7;
-}
-@media only screen and (min-width: 321px) {
-  html {
-    border: 3px solid #f00;
-  }
-}
-@media only screen and (min-width: 481px) {
-  html {
-    border: 3px solid #ffe600;
-  }
-}
-@media only screen and (min-width: 769px) {
-  html {
-    border: 3px solid #1cff00;
-  }
-}
-@media only screen and (min-width: 992px) {
-  html {
-    border: 3px solid #00e8ff;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  html {
-    border: 3px solid #5900ff;
-  }
-}
 .g-container,
 .g-container-header {
   margin-left: auto;

@@ -25,7 +25,7 @@ process.env.BMT = process.env.BMT || 'misupertoken'
 /*===========================
 ----- TELEGRAM---------------
 =============================*/
-process.env.BOT_TOKEN = process.env.BOT_TOKEN || '1319482689:AAHGVP_QUouKquZBZGVf3UfHLHCDaK0SEHA'
+process.env.BOT_TKN = process.env.BOT_TKN || '1319482689:AAHGVP_QUouKquZBZGVf3UfHLHCDaK0SEHA'
 
 // id del chat Miguel:
 process.env.CHAT_ID = process.env.CHAT_ID || '480159220'

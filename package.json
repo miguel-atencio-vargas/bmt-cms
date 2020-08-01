@@ -6,25 +6,24 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/npm/cli.git"
+  },
   "author": "Miguel Atencio",
   "license": "MIT",
   "dependencies": {
     "async": "^3.2.0",
-    "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-validator": "^6.6.0",
-    "form-data": "^3.0.0",
     "http-errors": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-simple": "^0.5.6",
     "mongoose": "^5.9.23",
     "mongoose-unique-validator": "^2.0.3",
     "node-fetch": "^2.6.0",
-    "pug": "^3.0.0",
-    "qs": "^6.9.4",
-    "telegraf": "^3.38.0",
-    "unirest": "^0.6.0"
+    "pug": "^3.0.0"
   }
 }

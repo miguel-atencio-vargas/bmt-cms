@@ -1,0 +1,28 @@
+extends includes/layout
+
+block title
+	title BMT | #{title}
+
+block variables
+	-page = '/login'
+block container
+	h3 Iniciar Sesión como Administrador del CMS de BMT
+	p * Campos obligatorios
+	form.c-form(method='POST', action='')
+
+		.c-form-personal
+			p Email:
+			input(name='email' type='email' placeholder="example@gmail.com" value=(admin===undefined ? '' : admin.email))
+			p Conrtaseña:
+			.c-form-password
+				input#password(name='password' type='password' value=(admin===undefined ? '' : admin.password))
+				button.showPass(type='button' onclick='showPass()') #[i#eye-1.icon-eye2]
+
+
+		include includes/error_message
+		button.c-form-submit(type='submit') Iniciar Sesión
+
+		.c-form-login
+			hr
+			p O puede:
+			a.c-card__btn(href='/register') Crear Cuenta
