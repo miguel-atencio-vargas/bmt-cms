@@ -1,6 +1,7 @@
 'use strict'
-const { validationResult } = require('express-validator')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const { validationResult } = require('express-validator')
 const fetch = require('node-fetch')
 
 const Admin = require('../models/admin')
@@ -8,9 +9,9 @@ const Admin = require('../models/admin')
 require('../config')
 const BOT_TKN = process.env.BOT_TKN
 const CHAT_ID = process.env.CHAT_ID
-//const jwt = require('jsonwebtoken');
-//const async = require('async');
+
 //const _ = require('underscore');
+//const async = require('async');
 
 function get_register_form(req, res, next) {
 	res.render('register', {
@@ -54,13 +55,7 @@ function get_login_form(req, res, next) {
 }
 
 function login_form(req, res, next) {
-	const { body } = req
-	Admin.find({'email': body.email}).lean()
-	.exec((err, admin) => {
-		if(err) { return next(err) }
-		console.log(admin)
-		res.json({ok: true})
-	})
+	console.log('Llegue al controller');
 }
 
 

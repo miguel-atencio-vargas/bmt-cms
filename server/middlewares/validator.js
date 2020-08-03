@@ -1,9 +1,13 @@
 'use strict'
 
 const { body, check, validationResult } = require('express-validator')
+const bcrypt = require('bcrypt')
+
 const Admin = require('../models/admin')
 require('../config')
-const bmt = process.env.BMT
+const BMT = process.env.BMT
+const EXP = process.env.EXP_TOKEN
+const SEED = process.env.SEED
 
 exports.check_field_event = [
     body('*', 'no puede estar vacio.').not().isEmpty(),
@@ -48,7 +52,7 @@ exports.check_field = [
 exports.check_code_register = [
 	body('code').custom(code => {
 		//seria bueno añadir un encriptado al code.
-		if(code !== bmt)
+		if(code !== BMT)
 			throw new Error('es incorrecto.')
 		else
 			return true
@@ -86,7 +90,7 @@ exports.check_password_min = [
 ]
 
 exports.check_confirm = [
-	check('password').custom((password, { req } ) => {
+	check('password').custom((password, { req }) => {
 		if(password !== req.body.confirm)
 			throw new Error('no coincide con la confirmación de la contraseña.')
 		else
@@ -105,6 +109,76 @@ exports.check_confirm = [
 		}
 	}
 ]
+
+
+// Login
+exports.is_email_in_db = [
+	check('email').custom((email, { req }) => {
+		Admin.find({ email: email }, 'password email').lean()
+		.exec(( err, admin_db ) => {
+			if(err) return new Error(err)
+			console.log("admin_db:",admin_db);
+			if( admin_db.length === 0 ){
+				//return Promise.reject('Es incorrecto');
+				return new Error('es incorrecto')
+			}else{
+				req.body['pass_db'] = admin_db[0].password
+				return true
+			}
+		})
+	}), function(req, res, next){
+		const page = req.originalUrl.replace(/\//g, '')
+		const errors = validationResult(req).array()
+		console.log(errors);
+		if( errors.length !== 0 ){
+			res.render( page, {
+				title: 'Revise sus credenciales',
+				admin: req.body,
+				errors
+			})
+		}else{
+			next() // ir al controlador.
+		}
+	}
+]
+
+exports.is_password_correct = [
+	check('password').custom((password, { req }) => {
+		bcrypt.compare(req.pass_db, password)
+		.then(res => {
+			if(!res) throw new Error('es incorrecta.')
+			else return true
+		})
+		Admin.find({ email }, 'email password').lean()
+		.exec((err, admin_db) => {
+			if(err) throw new Error(err)
+			if( admin_db.length === 0 ){
+				return Promise.reject('El email es incorrecto')
+			}else{
+				req.body['pass_db'] = admin_db[0].password
+				console.log(req.body);
+				return true
+			}
+		})
+	}), function(req, res, next){
+		const page = req.originalUrl.replace(/\//g, '')
+		const errors = validationResult(req).array()
+		if( errors.length !== 0 ){
+			res.render( page, {
+				title: 'Revise sus credenciales',
+				admin: req.body,
+				errors
+			})
+		}else{
+			next() // ir al controlador.
+		}
+	}
+]
+
+
+
+
+
 
 //Se debe reemplazar por un xss decente
 //.escape().trim()

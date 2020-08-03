@@ -9,7 +9,8 @@ const { check_field_event,
 		//Admin
 		check_field,
 		check_password_min,
-		check_confirm
+		check_confirm,
+		is_email_in_db
 	} = require('../middlewares/validator')
 
 /*-----------------------------------------------------*
@@ -55,6 +56,10 @@ router.get('/register', get_register_form)
 router.post('/register', check_field, check_code_register, check_password_min, check_confirm, register_form)
 //======  Login
 router.get('/login', get_login_form)
-router.post('/login', check_field, login_form)
+router.post('/login',
+	check_field,
+	check_password_min,
+	is_email_in_db,
+	login_form)
 
 module.exports = router

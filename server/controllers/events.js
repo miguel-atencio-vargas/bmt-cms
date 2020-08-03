@@ -1,6 +1,6 @@
 'use strict'
 const { validationResult } = require('express-validator')
-//const async = require('async');
+//const async = require('async')
 
 const Event = require('../models/event')
 
@@ -64,7 +64,7 @@ function list_all_next_events(req, res, next){
 	.exec((err, data) => {
 		if(err){ return next(err) }
 
-		let events = [];
+		let events = []
 		for(let e of data){
 			if(e.date >= today) { events.push(e) }
 		}
@@ -83,8 +83,7 @@ function get_event_to_edit(req, res, next) {
 	const { id } = req.params
 	Event.findById(id, (err, event) => {
 		if(err){ return next(err) }
-		const date = event.date? event.date.toJSON().slice(0,10) : '';
-		console.log(event);
+		const date = event.date? event.date.toJSON().slice(0,10) : ''
 		res.render('event_form', {
 			title: 'Modo Edición',
 			event,
@@ -131,9 +130,9 @@ module.exports = {
 //         ok: false,
 //         error,
 //         message
-//     });
+//     })
 // }
 
-//const jwt = require('jsonwebtoken');
-//const bcrypt = require('bcrypt');
-//const _ = require('underscore');
+//const jwt = require('jsonwebtoken')
+//const bcrypt = require('bcrypt')
+//const _ = require('underscore')
