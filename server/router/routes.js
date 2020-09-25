@@ -8,6 +8,7 @@ const { check_field_event,
 		check_code_register,
 		//Admin
 		check_field,
+		check_email_coincidence,
 		check_password_min,
 		check_confirm,
 		is_email_in_db
@@ -53,13 +54,17 @@ const {
 } = require('../controllers/admin')
 //======  Register
 router.get('/register', get_register_form)
-router.post('/register', check_field, check_code_register, check_password_min, check_confirm, register_form)
+router.post('/register',
+	check_field,
+	check_code_register,
+	check_email_coincidence,
+	check_password_min,
+	check_confirm, register_form)
 //======  Login
 router.get('/login', get_login_form)
 router.post('/login',
 	check_field,
 	check_password_min,
-	is_email_in_db,
-	login_form)
+	is_email_in_db, login_form)
 
 module.exports = router
