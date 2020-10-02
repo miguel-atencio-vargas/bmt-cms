@@ -1,7 +1,7 @@
 'use strict'
 const jwt = require('jsonwebtoken')
 const { validationResult } = require('express-validator')
-
+const passport = require('passport');
 
 const Admin = require('../models/admin')
 
@@ -20,7 +20,6 @@ function get_register_form(req, res, next) {
 
 async function register_form(req, res, next) {
 	try {
-		console.log(req.body)
 		const { body } = req
 		// TODO: telegram notification (se debe verificar que solo se envie si todo ha ido bien.)
 		/*const message = `Se esta creando una cuenta de Administrador con email: ${body.email} a horas: ${new Date()}`
@@ -49,10 +48,11 @@ function get_login_form(req, res, next) {
 		title: 'Inicie Sesión como Administrador'
 	})
 }
-
-function login_form(req, res, next) {
-	console.log('Llegue al controller');
-}
+//funado: Abcd12345@
+const login_form = passport.authenticate('local', {
+	failureRedirect: '/login',
+	successRedirect: '/events'
+})
 
 
 module.exports = {

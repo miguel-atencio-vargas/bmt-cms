@@ -14,10 +14,10 @@ mongoose.connect(uriDB, {
 	useUnifiedTopology: true,
     useFindAndModify: false
 }).then(() => {
-    console.log('Connect', uriDB)
+    console.log('Connected to:', uriDB)
     app.listen(port, () => {
-		console.log('Server running on: http://localhost:', port);
+		console.log(`Server running on: http://localhost:${port}`);
     })
-}).catch((e) => {
-    console.log('Error on serve app: \n', e)
+}).catch((error) => {
+    console.log('Error on serve app: \n', error)
 })
