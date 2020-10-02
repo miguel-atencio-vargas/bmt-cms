@@ -1,41 +1,45 @@
-'use strict'
 const path = require('path')
-const bodyParser = require('body-parser')
-const express = require('express')
-const createError = require('http-errors')
-const router = require('./router/routes')
 const morgan = require('morgan')
-const passport = require('passport')
+const express = require('express')
 const session = require('express-session')
+const passport = require('passport')
 const mongoose = require('mongoose')
-const connectMongo = require("connect-mongo")
+const bodyParser = require('body-parser')
+const createError = require('http-errors')
+const connectMongo = require('connect-mongo')
 
+const router = require('./router/routes')
 require('./modules/passport-auth')
+require('./config')
+
+
 const app = express()
 
+app.set('port', process.env.PORT)
+
 //----------view engine setup-----------//
-app.set('views', path.join(__dirname, 'client/views'))
 app.set('view engine', 'pug')
+//__________vistas------------
+app.set('views', path.join(__dirname, 'client/views'))
 
 
+//-----------Middlewares----------//
 // ----- Morgan ------
 app.use(morgan('dev'))
-//-----------Middlewares----------//;
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-//--- Mongo Store
+app.use(express.urlencoded({ extended: false }))
+// app.use(methodOverride('_method'))
 const MongoStore = connectMongo(session)
-app.use(
-  session({
-    secret: "secret",
+app.use(session({
+    secret: 'secret',
     resave: true,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  })
-)
-//-----Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
+	store: new MongoStore({ mongooseConnection: mongoose.connection }),
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+
+//app.use(bodyParser.json())
+
 //-------Rutas---------
 app.use(router)
 
@@ -56,6 +60,5 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500)
     res.render('error')
 })
-
 
 module.exports = app

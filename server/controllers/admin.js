@@ -49,9 +49,9 @@ function get_login_form(req, res, next) {
 	})
 }
 //funado: Abcd12345@
-const login_form = passport.authenticate('local', {
-	failureRedirect: '/login',
-	successRedirect: '/events'
+const login_form = passport.authenticate('local', function(val1, val2, val3, val4){
+	console.log(val1, val2, val3, val4);
+	console.log("soy la primera");
 })
 
 

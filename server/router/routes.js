@@ -50,6 +50,8 @@ const {
 	get_login_form,
 	login_form
 } = require('../controllers/admin')
+
+
 //======  Register
 router.get('/register', get_register_form)
 router.post('/register',
@@ -58,7 +60,10 @@ router.post('/register',
 	check_email_coincidence,
 	check_password_min,
 	check_confirm, register_form)
-//======  Login
+
+
+
+	//======  Login
 router.get('/login', get_login_form)
 router.post('/login',
 	check_field, login_form)

@@ -2,11 +2,10 @@
 const bcrypt = require('bcrypt')
 const createError = require('http-errors')
 const uniqueValidator = require('mongoose-unique-validator')
-const mongoose = require('mongoose')
-const { Schema } = mongoose
+const { Schema, model } = require('mongoose')
 
 
-let AdminSchema = Schema({
+let AdminSchema = new Schema({
 	email: {
 		type: String,
 		unique: true,
@@ -28,13 +27,12 @@ let AdminSchema = Schema({
 })
 
 
-AdminSchema.methods.encryptPassword = async password => {
+AdminSchema.methods.encryptPassword = async (password) => {
 	const salt = await bcrypt.genSalt(11)
 	return await bcrypt.hash(password, salt)
 }
 
-AdminSchema.methods.verifyPassword = async password => {
-	console.log("Llege a verificar contraseña en el Model");
+AdminSchema.methods.verifyPassword = async function(password) {
 	return await bcrypt.compare(password, this.password)
 }
 
@@ -49,4 +47,4 @@ AdminSchema.methods.toJSON = function () {
 AdminSchema.plugin(uniqueValidator, {
 	message: 'debe de ser único'
 })
-module.exports = mongoose.model('Admin', AdminSchema)
+module.exports = model('Admin', AdminSchema)
