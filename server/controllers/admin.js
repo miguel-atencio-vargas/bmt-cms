@@ -1,7 +1,7 @@
 'use strict'
 const jwt = require('jsonwebtoken')
 const { validationResult } = require('express-validator')
-const fetch = require('node-fetch')
+
 
 const Admin = require('../models/admin')
 
@@ -23,13 +23,14 @@ async function register_form(req, res, next) {
 		console.log(req.body)
 		const { body } = req
 		// TODO: telegram notification (se debe verificar que solo se envie si todo ha ido bien.)
-		const message = `Se esta creando una cuenta de Administrador con email: ${body.email} a horas: ${new Date()}`
+		/*const message = `Se esta creando una cuenta de Administrador con email: ${body.email} a horas: ${new Date()}`
 		const response = await fetch(`https://api.telegram.org/bot${BOT_TKN}/sendMessage`, {
 			method: 'post',
 			body: `chat_id=${CHAT_ID}&text=${message}`,
 			headers: {'Content-type': 'application/x-www-form-urlencoded'}
 		})
-		body['telegram_notify'] = response.status===200? true:false
+		body['telegram_notify'] = response.status===200? true:false*/
+		body['telegram_notify'] = true
 		//create admin
 		const newAdmin = new Admin(body)
 		newAdmin.password = await newAdmin.encryptPassword(body.password)
