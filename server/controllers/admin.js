@@ -42,18 +42,46 @@ async function register_form(req, res, next) {
 		return next(error)
 	}
 }
+//funado: Abcd12345@
 
 function get_login_form(req, res, next) {
 	res.render('login', {
 		title: 'Inicie Sesión como Administrador'
 	})
 }
-//funado: Abcd12345@
-const login_form = passport.authenticate('local', function(val1, val2, val3, val4){
-	console.log(val1, val2, val3, val4);
-	console.log("soy la primera");
-})
+//
+// const login_form = [passport.authenticate("local", {
+// 	successRedirect: "/events",
+// 	failureRedirect: "/login"
+// 	// aqui deberia ir failureFlash: true
+// }), function(req, res) {
+// 	console.log('we didt');
+// }]
 
+const login_form = function(req, res, next) {
+	passport.authenticate('local', function(err, user, message) {
+		if(err){
+			// si hay un error redireccionamos al mismo login embebiendo los errores.
+			console.log(err);
+			res.render('login', {
+				title: 'Sucedio un error!'
+			})
+		}
+		if(!user){
+			// si no hay usuario el email o contraseña son incorrectos.
+			console.log(message);
+			res.render('login', {
+				title: 'Revise las credenciales'
+			})
+		}else{
+			// si hay usuario se logueo con los datos correctos, terminar la peticion.
+			console.log(message);
+			res.render('events', {
+				title: 'Bienvenido!'
+			})
+		}
+	});
+}
 
 module.exports = {
 	get_register_form,

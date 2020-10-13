@@ -4,32 +4,35 @@ const LocalStrategy = require('passport-local').Strategy
 const Admin = require('../models/admin')
 
 
-
 passport.use(new LocalStrategy({
 	usernameField: 'email',
 	passwordField: 'password'
-}, async (email, password, done) => {
-	const admin = await Admin.findOne({ email })
+}, async ( email, password, done ) => {
+	const admin = await Admin.findOne({ email });
 	if( admin ){
-		const match = await admin.verifyPassword(password)
-		if (match) {
-			return done(null, admin) // this is sending to controller TODO: make controller functionality login.
+		const match = await admin.verifyPassword(password);
+		if ( match ) {
+			return done(null, admin, { message: `Bienvenido ${admin.email} al CMS de BMT` });
 		} else {
-			return done(null, false, { message: 'Incorrect password' })
+			return done(null, false, { message: '(Email o) contraseña incorrecta.' });
 		}
-	}else{
-		return done(null, false, { message: 'No admin found' })
 	}
+	return done(null, false, { message: 'Email (o contraseña) incorrecto.' });
 }))
 
+
+
 passport.serializeUser((admin, done) => {
-	console.log("serializeUser", admin);
-	done(null, admin.id)
+	delete admin.password;
+	console.log("serializeAdmin", admin);
+	done(null, admin.id);
 })
 
 passport.deserializeUser((id, done) => {
-	console.log("deserializeUser", id);
+	console.log("deserializeAdmin", id);
 	Admin.findById(id, (err, admin) => {
+		console.log("=======Admin ========");
+		console.log(admin);
 		done(err, admin)
 	})
 })

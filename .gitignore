@@ -4,3 +4,7 @@ server/config.js
 package-lock.json
 .directory
 .vscode
+.idea/workspace.xml
+.idea/vcs.xml
+*.xml
+.idea/bmt-cms.iml

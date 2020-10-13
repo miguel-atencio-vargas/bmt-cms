@@ -28,12 +28,12 @@ let AdminSchema = new Schema({
 
 
 AdminSchema.methods.encryptPassword = async (password) => {
-	const salt = await bcrypt.genSalt(11)
-	return await bcrypt.hash(password, salt)
+	const salt = await bcrypt.genSalt(11);
+	return await bcrypt.hash(password, salt);
 }
 
 AdminSchema.methods.verifyPassword = async function(password) {
-	return await bcrypt.compare(password, this.password)
+	return await bcrypt.compare(password, this.password);
 }
 
 //metodo para borrar el atributo password

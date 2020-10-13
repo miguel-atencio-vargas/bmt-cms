@@ -1,11 +1,11 @@
-'use strict'
-const { validationResult } = require('express-validator')
+'use strict';
+const { validationResult } = require('express-validator');
 //const async = require('async')
 
-const Event = require('../models/event')
+const Event = require('../models/event');
 
 function event_create_get(req, res, next){
-    res.render('event_form', {
+	res.render('event_form', {
 		title: 'Crear Evento'
 	})
 }
@@ -25,13 +25,13 @@ function event_create_post(req, res, next) {
 // Recupera TODOS los eventos
 function list_all_events(req, res, next){
 	Event.find().sort({'date': -1}).lean()
-	.exec((err, events) => {
-		if(err){ return next(err) }
-		res.render('events', {
-			title: 'Todos los eventos',
-			events
+		.exec((err, events) => {
+			if(err){ return next(err) }
+			res.render('events', {
+				title: 'Todos los eventos',
+				events
+			})
 		})
-	})
 }
 
 // Recuperra todos los eventos publicos y en forma ascendente.
