@@ -1,26 +1,25 @@
 extends includes/layout
 
 block title
-	title BMT | #{title}
+	title BMT | #{ title }
 
 block variables
-	-page = '/login'
+	- page = '/login'
 block container
 	h3 Iniciar Sesión como Administrador del CMS de BMT
 	p * Campos obligatorios
 	form.c-form(method='POST', action='')
-
 		.c-form-personal
+			include includes/message
 			p Email:
 			input(name='email' type='email' placeholder="example@gmail.com" value=(admin===undefined ? '' : admin.email))
-			p Conrtaseña:
+			p Contraseña:
 			.c-form-password
 				input#password(name='password' type='password' value=(admin===undefined ? '' : admin.password))
 				button.showPass(type='button' onclick='showPass()') #[i#eye-1.icon-eye2]
 
 
 		include includes/error_message
-		p= `Message: ${message}`
 		button.c-form-submit(type='submit') Iniciar Sesión
 
 		.c-form-login

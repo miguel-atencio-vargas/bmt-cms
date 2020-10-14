@@ -1,7 +1,7 @@
-const passport = require('passport')
-const LocalStrategy = require('passport-local').Strategy
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
-const Admin = require('../models/admin')
+const Admin = require('../models/admin');
 
 
 passport.use(new LocalStrategy({
@@ -18,21 +18,21 @@ passport.use(new LocalStrategy({
 		}
 	}
 	return done(null, false, { message: 'Email (o contraseña) incorrecto.' });
-}))
+}));
 
 
 
 passport.serializeUser((admin, done) => {
-	delete admin.password;
 	console.log("serializeAdmin", admin);
+	delete admin.password;
 	done(null, admin.id);
-})
+});
 
 passport.deserializeUser((id, done) => {
 	console.log("deserializeAdmin", id);
 	Admin.findById(id, (err, admin) => {
-		console.log("=======Admin ========");
+		console.log("======= Admin ========");
 		console.log(admin);
 		done(err, admin)
-	})
-})
+	});
+});

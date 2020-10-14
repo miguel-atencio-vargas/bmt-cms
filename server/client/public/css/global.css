@@ -348,9 +348,9 @@ table {
 .c-form-personal a,
 .c-form-code a,
 .c-form-login a {
-  border: 0.4rem solid #39a0ff;
   width: -webkit-max-content;
   width: max-content;
+  border: 0.4rem solid #39a0ff;
 }
 .c-form-password {
   display: flex;
@@ -375,6 +375,13 @@ input:invalid,
 textarea:invalid,
 select:invalid {
   box-shadow: 0 0 1.5px 1px rgba(0,201,255,0);
+}
+.c-message {
+  padding: 1.5rem;
+  border: 3px solid #ffc456;
+  border-radius: 10px;
+  color: #fff9ef;
+  font-size: 2.2rem;
 }
 .showPass {
   background: #222a2e;

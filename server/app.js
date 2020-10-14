@@ -28,6 +28,7 @@ app.set('views', path.join(__dirname, 'client/views'));
 // ----- Morgan ------
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());// not sure to use
 // app.use(methodOverride('_method'))
 const MongoStore = connectMongo(session);
 app.use(session({
@@ -37,7 +38,7 @@ app.use(session({
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
 }));
 
-app.use(bodyParser.json());// not sure to use
+
 
 
 app.use(passport.initialize());
