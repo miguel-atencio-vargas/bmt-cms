@@ -6,8 +6,9 @@ block title
 block variables
 	- page = '/login'
 block container
-	h3 Iniciar Sesión como Administrador del CMS de BMT
-	p * Campos obligatorios
+	.c-title-form
+		.h2 Iniciar Sesión como Administrador del CMS de BMT
+		p Todos los campos son necesarios.
 	form.c-form(method='POST', action='')
 		.c-form-personal
 			include includes/message

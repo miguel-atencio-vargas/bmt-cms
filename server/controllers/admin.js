@@ -43,6 +43,7 @@ async function register_form(req, res, next) {
 }
 
 function get_login_form(req, res, next) {
+	console.log(req.isAuthenticated());
 	res.render('login', {
 		title: 'Inicie Sesión como Administrador'
 	})
@@ -51,18 +52,16 @@ function get_login_form(req, res, next) {
 
 // Abcdafds54353@
 const login_form = function(req, res, next) {
-	console.log("Llegue al controlador!");
-	passport.authenticate('local', function(err, user, message) {
+	passport.authenticate('local', function(err, admin, message) {
 		if(err){
 			// si hay un error redireccionamos al mismo login embebiendo los errores.
-			console.log(err);
-			console.log(message);
+			console.log(err, message);
 			res.render('login', {
 				title: 'Sucedio un error!',
 				message
 			});
 		}
-		if(!user){
+		if(!admin){
 			// si no hay usuario el email o contraseña son incorrectos.
 			console.log(message);
 			res.render('login', {
@@ -71,7 +70,6 @@ const login_form = function(req, res, next) {
 			});
 		}else{
 			// si hay usuario se logueo con los datos correctos, terminar la peticion.
-			console.log(message);
 			res.redirect('events');
 		}
 	})(req, res);

@@ -7,10 +7,10 @@ block variables
 block container
 	-hours = ['13:00', '14:00', '15:00', '16:00', '17:00', '17:00', '19:00', '20:00', '21:00', '22:00', '23:00']
 	-all_status = ['private', 'public']
-
-
-	h3 Crear Nuevo Evento BMT
-	p * Camposf obligatorios
+	//- TODO: Añadir campos para ubicacion del evento.
+	.c-title-form
+		h3 Crear Nuevo Evento BMT
+		p Todos los campos son obligatorios.
 	form.c-form(method='POST' action='')
 		.c-form__group
 			input(type='text', placeholder='Nombre del evento *' name='name' value=(event===undefined ? '' : event.name))

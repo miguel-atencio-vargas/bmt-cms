@@ -1,3 +1,5 @@
+.c-form__input
+	color: black
 
 .c-form-personal, .c-form-code, .c-form-login
 	margin-bottom: 4rem
@@ -7,6 +9,7 @@
 		line-height: 1.1
 		padding: 2rem 0 1rem
 		color: $base-color
+		font-weight $semi-bold
 	& a
 		width: max-content
 		border: .4rem solid #39A0FF
@@ -20,19 +23,30 @@ input, textarea, select
 	width: 100%
 	border-radius: 5px
 	background-color: $base-color-light
-	border: 3px solid $base3-color-dark
+	border: 3px solid #000000
 	transition: .7s ease
 	&:focus
-		border: 3px solid #33ff99ff
+		border: 3px solid #33ff99
+		box-shadow: 0 0 5px 5px rgba(#33ff99,.4)
 	&:invalid
-		box-shadow: 0 0 1.5px 1px rgba(#00C9FF,0)
+		border 3px solid #e03333
+		box-shadow: 0 0 5px 5px rgba(#ff0000,.4)
 
-.c-message
-	padding 1.5rem
-	border 3px solid #ffc456
-	border-radius 10px
+.c-title-form
 	color: $base-color-light
 	font-size: $text-size.normal-3
+	padding: 2rem 4rem 0
+	p
+		font-size $text-size.normal-2
+		padding 1rem 3.5rem
+		color #33ff99
+
+.c-message
+	padding .8rem 1.5rem
+	border 3px solid #b548ff
+	border-radius 10px
+	box-shadow: 0 0 5px 3px rgba(#b548ff,.3)
+
 
 .showPass
 	background: #222a2e

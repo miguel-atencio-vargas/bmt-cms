@@ -331,6 +331,9 @@ table {
   color: #ff4747;
   vertical-align: middle;
 }
+.c-form__input {
+  color: #000;
+}
 .c-form-personal,
 .c-form-code,
 .c-form-login {
@@ -344,6 +347,7 @@ table {
   line-height: 1.1;
   padding: 2rem 0 1rem;
   color: #fff7e8;
+  font-weight: 600;
 }
 .c-form-personal a,
 .c-form-code a,
@@ -363,25 +367,36 @@ select {
   width: 100%;
   border-radius: 5px;
   background-color: #fff9ef;
-  border: 3px solid #000b38;
+  border: 3px solid #000;
   transition: 0.7s ease;
 }
 input:focus,
 textarea:focus,
 select:focus {
   border: 3px solid #3f9;
+  box-shadow: 0 0 5px 5px rgba(51,255,153,0.4);
 }
 input:invalid,
 textarea:invalid,
 select:invalid {
-  box-shadow: 0 0 1.5px 1px rgba(0,201,255,0);
+  border: 3px solid #e03333;
+  box-shadow: 0 0 5px 5px rgba(255,0,0,0.4);
 }
-.c-message {
-  padding: 1.5rem;
-  border: 3px solid #ffc456;
-  border-radius: 10px;
+.c-title-form {
   color: #fff9ef;
   font-size: 2.2rem;
+  padding: 2rem 4rem 0;
+}
+.c-title-form p {
+  font-size: 2rem;
+  padding: 1rem 3.5rem;
+  color: #3f9;
+}
+.c-message {
+  padding: 0.8rem 1.5rem;
+  border: 3px solid #b548ff;
+  border-radius: 10px;
+  box-shadow: 0 0 5px 3px rgba(181,72,255,0.3);
 }
 .showPass {
   background: #222a2e;
@@ -644,8 +659,5 @@ select:invalid {
 .c-popup__menu a i {
   font-size: 2.3rem;
   padding-left: 0.8rem;
-}
-.c-form__input {
-  color: #000;
 }
 /*# sourceMappingURL=global.css.map */

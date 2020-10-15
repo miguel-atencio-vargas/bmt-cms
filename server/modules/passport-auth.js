@@ -8,11 +8,13 @@ passport.use(new LocalStrategy({
 	usernameField: 'email',
 	passwordField: 'password'
 }, async ( email, password, done ) => {
-	const admin = await Admin.findOne({ email });
-	if( admin ){
-		const match = await admin.verifyPassword(password);
+	const adminDB = await Admin.findOne({ email });
+	if( adminDB ){
+		const match = await adminDB.verifyPassword(password);
+		let adminObject = adminDB.toObject();
+		delete adminObject['password'];
 		if ( match ) {
-			return done(null, admin, { message: `Bienvenido ${admin.email} al CMS de BMT` });
+			return done(null, adminObject, { message: `Bienvenido ${adminObject.email} al CMS de BMT` });
 		} else {
 			return done(null, false, { message: '(Email o) contraseña incorrecta.' });
 		}
@@ -24,7 +26,6 @@ passport.use(new LocalStrategy({
 
 passport.serializeUser((admin, done) => {
 	console.log("serializeAdmin", admin);
-	delete admin.password;
 	done(null, admin.id);
 });
 

@@ -23,7 +23,6 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'client/views'));
 
 
-
 //-----------Middlewares----------//
 // ----- Morgan ------
 app.use(morgan('dev'));
@@ -31,6 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());// not sure to use
 // app.use(methodOverride('_method'))
 const MongoStore = connectMongo(session);
+
 app.use(session({
     secret: 'secret',
     resave: true,
@@ -39,13 +39,16 @@ app.use(session({
 }));
 
 
-
-
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
+/*app.use((req, res, next) => {
+    console.log(req._passport._serializers)
+    console.log("req:", req.user, req.admin);
+    res.locals.admin = req.admin || undefined;
+    console.log(res.locals);
+    next();
+});*/
 //-------Rutas---------
 app.use(router);
 
@@ -55,7 +58,7 @@ app.use(express.static(path.join(__dirname, 'client/public')));
 app.use((req, res, next) => {
     const error = createError(404);
     next(error);
-})
+});
 
 app.use((err, req, res, next) => {
     console.log(`=======${new Date()}=======`);
@@ -65,6 +68,6 @@ app.use((err, req, res, next) => {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
-})
+});
 
 module.exports = app;

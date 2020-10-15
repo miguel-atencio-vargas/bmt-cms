@@ -9,5 +9,5 @@ mongoose.connect(MONGODB_URI, {
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true})
-    .then((db) => console.log('Mongodb is connected to', process.MONGODB_DATABASE, 'database.'))
-    .catch((err) => console.error(err))
+  .then((db) => console.log('Mongodb is connected to', process.MONGODB_DATABASE, 'database.'))
+  .catch((err) => console.error(err));

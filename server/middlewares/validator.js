@@ -10,7 +10,7 @@ const EXP = process.env.EXP_TOKEN
 const SEED = process.env.SEED
 
 exports.check_field_event = [
-    body('*', 'no puede estar vacio.').not().isEmpty(),
+	body('*', 'no puede estar vacio.').not().isEmpty(),
 	function(req, res, next){
 		const errors  = validationResult(req).array()
 		if( errors.length !== 0 ){
