@@ -9,7 +9,7 @@ block container
 	.c-title-form
 		.h2 Crear usuario Administrador
 		p Todos los campos son necesarios.
-	form.c-form(method='POST', action='')
+	form.c-form(method='POST', action='/events')
 		.c-form-personal
 			p Ingrese su correo personal:
 			input(name='email' type='email' placeholder="example@gmail.com" value=(admin===undefined ? '' : admin.email))

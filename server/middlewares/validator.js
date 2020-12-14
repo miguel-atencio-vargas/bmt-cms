@@ -12,7 +12,7 @@ const SEED = process.env.SEED
 exports.check_field_event = [
 	body('*', 'no puede estar vacio.').not().isEmpty(),
 	function(req, res, next){
-		const errors  = validationResult(req).array()
+		const errors  = validationResult(req).array();
 		if( errors.length !== 0 ){
 			res.render('event_form', {
 				title: 'Revise los datos del evento',
@@ -21,7 +21,7 @@ exports.check_field_event = [
 				errors
 			})
 		}else{
-			next() // ir al controlador
+			next(); // ir al controlador
 		}
 	}
 ]

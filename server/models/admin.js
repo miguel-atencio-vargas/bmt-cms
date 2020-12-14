@@ -1,8 +1,7 @@
-'use strict'
-const bcrypt = require('bcrypt')
-const createError = require('http-errors')
-const uniqueValidator = require('mongoose-unique-validator')
-const { Schema, model } = require('mongoose')
+'use strict';
+const bcrypt = require('bcrypt');
+const uniqueValidator = require('mongoose-unique-validator');
+const { Schema, model } = require('mongoose');
 
 
 let AdminSchema = new Schema({
@@ -36,15 +35,17 @@ AdminSchema.methods.verifyPassword = async function(password) {
 	return await bcrypt.compare(password, this.password);
 }
 
-//metodo para borrar el atributo password
 AdminSchema.methods.toJSON = function () {
-	let admin = this
-	let adminObject = admin.toObject()
-	delete adminObject.password
-	return adminObject
+	let admin = this;
+	console.log('adminObject: ', admin);
+	let adminObject = admin.toObject();
+	delete adminObject.password;
+	return adminObject;
 }
+
 //error cuando los datos tienen que ser unicos
 AdminSchema.plugin(uniqueValidator, {
 	message: 'debe de ser único'
-})
-module.exports = model('Admin', AdminSchema)
+});
+
+module.exports = model('Admin', AdminSchema);
