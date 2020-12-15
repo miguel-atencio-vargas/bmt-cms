@@ -1,4 +1,4 @@
-`use strict`;
+'use strict';
 const path = require('path');
 const morgan = require('morgan');
 const express = require('express');
@@ -12,10 +12,11 @@ const methodOverride = require('method-override');
 
 const router = require('./router/routes');
 require('./helpers/passport-auth');
-require('./config');
 
+const PORT = process.env.PORT;
+const SECRET = process.env.SECRET;
 const app = express();
-app.set('port', process.env.PORT);
+app.set('port', PORT);
 
 //----------view engine setup-----------//
 app.set('view engine', 'pug');
@@ -28,12 +29,11 @@ app.set('views', path.join(__dirname, 'client/views'));
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
-app.use(bodyParser.json());// not sure to use
-// app.use(methodOverride('_method'))
+app.use(bodyParser.json());
 const MongoStore = connectMongo(session);
 
 app.use(session({
-    secret: 'secret',
+    secret: SECRET,
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),

@@ -1,13 +1,13 @@
-'use strict'
+'use strict';
 
-const { body, check, validationResult } = require('express-validator')
-const bcrypt = require('bcrypt')
+const { body, check, validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
 
-require('../config')
-const Admin = require('../models/admin')
-const BMT = process.env.BMT
-const EXP = process.env.EXP_TOKEN
-const SEED = process.env.SEED
+
+const Admin = require('../models/admin');
+const BMT = process.env.BMT;
+const EXP = process.env.EXP_TOKEN;
+const SEED = process.env.SEED;
 
 exports.check_field_event = [
 	body('*', 'no puede estar vacio.').not().isEmpty(),

@@ -1,11 +1,8 @@
 'use strict';
-const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const passport = require('passport');
 
 const Admin = require('../models/admin');
-
-require('../config');
 
 const adminCtrl = {};
 
@@ -41,7 +38,7 @@ adminCtrl.get_login_form = (req, res, next) => {
 }
 
 
-// Abcdafds54353@
+
 adminCtrl.login_form = passport.authenticate('local', {
 	successRedirect: '/events',
 	failureRedirect: '/login',

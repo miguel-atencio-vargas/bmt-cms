@@ -50,7 +50,7 @@ let EventSchema = Schema({
 //     delete eventObject.password;
 //     return eventObject;
 // }
-//error cuando los datos tienen que ser unicos
+
 // Virtual for author's URL
 EventSchema
 .virtual('url')
