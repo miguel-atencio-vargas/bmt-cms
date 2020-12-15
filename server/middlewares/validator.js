@@ -49,6 +49,7 @@ exports.check_field = [
 exports.check_code_register = [
 	body('code').custom(code => {
 		//seria bueno añadir un encriptado al code.
+		console.log('BMT: ', BMT);
 		if(code !== BMT) throw new Error('es incorrecto.')
 		else return true
 	}), function(req, res, next) {

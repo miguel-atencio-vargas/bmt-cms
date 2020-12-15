@@ -22,10 +22,7 @@ adminCtrl.register_form = async (req, res, next) => {
 		const newAdmin = new Admin(body);
 		newAdmin.password = await newAdmin.encryptPassword(body.password);
 		await newAdmin.save();
-		res.json({ //TODO: ir a una pagina de perfil
-			ok: true,
-			message: "Nuevo Administrador creado!"
-		});
+		res.redirect('/events')
 	} catch (error) {
 		return next(error);
 	}
